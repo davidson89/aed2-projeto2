@@ -35,8 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/UnionFind.o \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/UnionFind.o \
 	${OBJECTDIR}/Les.o
 
 
@@ -44,8 +44,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=entrada.txt
+CXXFLAGS=entrada.txt
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -64,15 +64,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto2-aed2: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto2-aed2 ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/UnionFind.o: UnionFind.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/UnionFind.o UnionFind.cpp
-
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/UnionFind.o: UnionFind.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/UnionFind.o UnionFind.cpp
 
 ${OBJECTDIR}/Les.o: Les.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -13,10 +13,10 @@ using namespace std;
 
 class Les {
 public:
-    Les(string valor);
+    Les(int valor);
     Les(const Les& orig);
     virtual ~Les();
-    string valor;
+    int valor;
     Les *lesMain;
     Les *lesNext;
 private:
