@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     UnionFind unionFind = new UnionFind(size);
     while(!feof(arq)){
         fscanf(arq,"%d","%d",a,b); //Le  a linha e grava e em str
-        unionFind->union_set(a,b);
+        unionFind->union_set_simples(a,b);
     }
     
     return 0;
