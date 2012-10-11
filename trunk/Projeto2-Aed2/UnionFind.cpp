@@ -15,10 +15,18 @@ UnionFind::UnionFind(int size) {
     make_set(int size);
 }
 
-void UnionFind::make_set(int size){
+void UnionFind::make_set(int size) {
      for(int i=0;i<size;i++){
         this->les[i] = NULL;
      }
+}
+
+void UnionFind::union_set(int a, int b) {
+    
+}
+
+void UnionFind::find_set(int no) {
+    
 }
 
 UnionFind::UnionFind(const UnionFind& orig) {

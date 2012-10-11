@@ -15,6 +15,8 @@ public:
     virtual ~UnionFind();
     Les** les;
     int size;
+    void union_set(int a, int b);
+    void find_set(int no);
 private:
     void make_set(int size);
 
