@@ -29,7 +29,19 @@ void UnionFind::make_set(int size) {
      }
 }
 
-void UnionFind::union_set(int a, int b) {
+void UnionFind::union_set_simples(int a, int b) {
+    
+}
+
+void UnionFind::union_set_ponderado(int a, int b) {
+    
+}
+
+void UnionFind::union_set_floresta(int a, int b) {
+    
+}
+
+void UnionFind::union_set_floresta_ponderada(int a, int b) {
     
 }
 
