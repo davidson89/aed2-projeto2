@@ -30,7 +30,10 @@ void UnionFind::make_set(int size) {
 }
 
 void UnionFind::union_set_simples(int a, int b) {
-    
+    while(this->les[a] != NULL){
+        this->les[a]->lesMain = this->les[b];
+        this->les[a] = this->les[a]->lesNext;
+    }
 }
 
 void UnionFind::union_set_ponderado(int a, int b) {
@@ -47,6 +50,12 @@ void UnionFind::union_set_floresta_ponderada(int a, int b) {
 
 void UnionFind::find_set(int no) {
     
+}
+
+void UnionFind::printUnions() {
+    for(int i = 0 ; i < 4 ; i++){
+        
+    }
 }
 
 UnionFind::UnionFind(const UnionFind& orig) {
