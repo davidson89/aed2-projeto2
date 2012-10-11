@@ -7,6 +7,7 @@
 
 #ifndef UNIONFIND_H
 #define	UNIONFIND_H
+#include "Les.h"
 
 class UnionFind {
 public:

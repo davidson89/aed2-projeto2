@@ -7,7 +7,7 @@
 
 #include "Les.h"
 
-Les::Les(string valor) {
+Les::Les(int valor) {
     this->valor = valor;
     this->lesMain= NULL;
     this->lesNext= NULL;

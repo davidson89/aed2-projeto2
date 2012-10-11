@@ -43,6 +43,9 @@
         <compilerSet>default</compilerSet>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <commandLine>entrada.txt</commandLine>
+        </ccTool>
       </compileType>
     </conf>
     <conf name="Release" type="1">

@@ -6,6 +6,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 #include "UnionFind.h"
 #include "Les.h"
 
@@ -13,7 +14,7 @@ using namespace std;
 
 UnionFind::UnionFind(int size) {
     this->size=size;
-    make_set(int size);
+    make_set(size);
 }
 
 /**
@@ -34,6 +35,7 @@ void UnionFind::union_set_simples(int a, int b) {
         this->les[a]->lesMain = this->les[b];
         this->les[a] = this->les[a]->lesNext;
     }
+    printUnions();
 }
 
 void UnionFind::union_set_ponderado(int a, int b) {
@@ -54,7 +56,7 @@ void UnionFind::find_set(int no) {
 
 void UnionFind::printUnions() {
     for(int i = 0 ; i < 4 ; i++){
-        
+        cout << this->les[i]->valor << " " << endl;
     }
 }
 
