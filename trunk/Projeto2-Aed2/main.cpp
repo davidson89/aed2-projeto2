@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     int size;
     fscanf(arq,"%d", &size);
     cout << "** " << size << " **" << endl;
-    UnionFind unionFind = new UnionFind( size);
+    UnionFind *unionFind = new UnionFind(size);
 //    while(!feof(arq)){
 //        fscanf(arq,"%d","%d", a , b); //Le  a linha e grava e em str
 //        unionFind->union_set_simples(a , b);
