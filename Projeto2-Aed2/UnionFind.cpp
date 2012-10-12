@@ -14,6 +14,7 @@ using namespace std;
 
 UnionFind::UnionFind(int size) {
     this->size=size;
+    this->les = new Les *[size];
     make_set(size);
 }
 
@@ -25,7 +26,7 @@ UnionFind::UnionFind(int size) {
 void UnionFind::make_set(int size) {
      for(int i=0;i<size;i++){
         this->les[i] = new Les(i);
-        this->les[i]->lesMain = this->les[1];
+        this->les[i]->lesMain = this->les[i];
         this->les[i]->lesNext = NULL;
      }
 }
@@ -33,9 +34,15 @@ void UnionFind::make_set(int size) {
 void UnionFind::union_set_simples(int a, int b) {
     while(this->les[a] != NULL){
         this->les[a]->lesMain = this->les[b];
+        while(this->les[b] != NULL) {
+            if(this->les[b]->lesNext == NULL){
+               this->les[b]->lesNext = this->les[a];
+            }
+            this->les[b] = this->les[b]->lesNext;
+        }
         this->les[a] = this->les[a]->lesNext;
     }
-    printUnions();
+    //printUnions();
 }
 
 void UnionFind::union_set_ponderado(int a, int b) {
