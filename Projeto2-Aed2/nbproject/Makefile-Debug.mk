@@ -44,8 +44,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=entrada.txt
-CXXFLAGS=entrada.txt
+CCFLAGS=
+CXXFLAGS=
 
 # Fortran Compiler Flags
 FFLAGS=
