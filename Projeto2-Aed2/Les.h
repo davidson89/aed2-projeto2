@@ -17,6 +17,7 @@ public:
     Les(const Les& orig);
     virtual ~Les();
     int valor;
+	int TamanhoConjunto;
     Les *lesMain;
     Les *lesNext;
 private:

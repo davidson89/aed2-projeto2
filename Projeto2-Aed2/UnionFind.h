@@ -21,6 +21,8 @@ public:
     void union_set_floresta(int a, int b);
     void union_set_floresta_ponderada(int a, int b);
     void find_set(int no);
+	Les* find_set_arvore(int no);
+	Les* find_set_arvore_ponderado(int no);
     void printUnions();
 private:
     void make_set(int size);
