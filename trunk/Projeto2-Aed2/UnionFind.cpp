@@ -25,17 +25,21 @@ void UnionFind::make_set(int size) {
 }
 
 void UnionFind::union_set_simples(int a, int b) {
-    while (this->les[a] != NULL) {
-        this->les[a]->lesMain = this->les[b];
-        while (this->les[b] != NULL) {
-            if (this->les[b]->lesNext == NULL) {
-                this->les[b]->lesNext = this->les[a];
-            }
-            this->les[b] = this->les[b]->lesNext;
-        }
-        this->les[a] = this->les[a]->lesNext;
+    Les *auxHead = this->les[a]->lesMain;
+    Les *auxA = this->les[a]->lesMain;
+    while (auxA != NULL) {
+        auxA->lesMain = this->les[b]->lesMain;
+        auxA = auxA->lesNext;
     }
-    //printUnions();
+    Les *auxB = this->les[b];
+    while (auxB != NULL) {
+        if (auxB->lesNext == NULL) {
+            auxB->lesNext = auxHead;
+            printUnions();
+            return;
+        }
+        auxB = auxB->lesNext;
+    }
 }
 
 void UnionFind::union_set_ponderado(int a, int b) {
@@ -88,17 +92,18 @@ void UnionFind::find_set(int no) {
 }
 
 void UnionFind::printUnions() {
-    /*
-        for(int i = 0 ; i < 4 ; i++){
-        cout << this->les[i]->valor << " " ;
-    }*/
-
-    // acredito que o fin_set_arvore serve para os dois casos
-    // coloquei 10 so para teste , para conseguir ver o arquivo final
-    for (int i = 0; i < 10; i++) {
-        Les* representante = find_set_arvore(i);
-        cout << representante->valor << " ";
+    for (int i = 0; i < this->size; i++) {
+        cout << this->les[i]->lesMain->valor << " ";
     }
+    cout << "\n" << endl;
+    /*
+        // acredito que o fin_set_arvore serve para os dois casos
+        // coloquei 10 so para teste , para conseguir ver o arquivo final
+        for (int i = 0; i < 10; i++) {
+            Les* representante = find_set_arvore(i);
+            cout << representante->valor << " ";
+        }
+     */
 }
 
 UnionFind::UnionFind(const UnionFind& orig) {
