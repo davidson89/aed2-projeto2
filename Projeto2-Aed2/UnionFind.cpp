@@ -25,25 +25,33 @@ void UnionFind::make_set(int size) {
 }
 
 void UnionFind::union_set_simples(int a, int b) {
-    Les *auxHead = this->les[a]->lesMain;
     Les *auxA = this->les[a]->lesMain;
-    while (auxA != NULL) {
-        auxA->lesMain = this->les[b]->lesMain;
+    Les *auxB = this->les[b]->lesMain;
+    Les *auxMainA = this->les[a]->lesMain;
+    Les *auxMainB = this->les[b]->lesMain;
+    auxMainB->height = auxMainA->height + auxMainB->height;
+    bool alterado = false;
+
+    while(auxA != NULL){
+        auxA->lesMain = auxMainB;
         auxA = auxA->lesNext;
-    }
-    Les *auxB = this->les[b];
-    while (auxB != NULL) {
-        if (auxB->lesNext == NULL) {
-            auxB->lesNext = auxHead;
-            printUnions();
-            return;
+        if(auxB->lesNext == NULL) {
+            auxB->lesNext = auxMainA;
+            alterado = true;
         }
-        auxB = auxB->lesNext;
+        if(!alterado){
+            auxB = auxB->lesNext;
+        }
     }
+    printUnions();
 }
 
 void UnionFind::union_set_ponderado(int a, int b) {
-
+    if(this->les[a]->lesMain->height > this->les[b]->lesMain->height){
+        union_set_simples(b , a);
+    } else {
+        union_set_simples(a , b);
+    }
 }
 
 void UnionFind::union_set_floresta(int a, int b) {
@@ -53,7 +61,7 @@ void UnionFind::union_set_floresta(int a, int b) {
     if (x == y) return;
 
     x->lesMain = y;
-    y->tamConjunto += x->tamConjunto;
+    y->height += x->height;
 }
 
 Les* UnionFind::find_set_arvore(int no) {
@@ -78,12 +86,12 @@ void UnionFind::union_set_floresta_ponderada(int a, int b) {
     Les *y = find_set_arvore_ponderado(b);
 
     if (x == y) return;
-    if (x->tamConjunto > y->tamConjunto) {
+    if (x->height > y->height) {
         y->lesMain = x;
-        x->tamConjunto += y->tamConjunto;
+        x->height += y->height;
     } else {
         x->lesMain = y;
-        y->tamConjunto += x->tamConjunto;
+        y->height += x->height;
     }
     return;
 }
@@ -95,7 +103,7 @@ void UnionFind::printUnions() {
     for (int i = 0; i < this->size; i++) {
         cout << this->les[i]->lesMain->valor << " ";
     }
-    cout << "\n" << endl;
+    cout << endl;
     /*
         // acredito que o fin_set_arvore serve para os dois casos
         // coloquei 10 so para teste , para conseguir ver o arquivo final
