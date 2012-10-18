@@ -8,7 +8,7 @@ using namespace std;
 using std::string;
 
 /*
- * 
+ *
  */
 int main(int argc, char** argv) {
 
@@ -32,8 +32,8 @@ int main(int argc, char** argv) {
         //unionFind->union_set_floresta_ponderada(a, b);
         count++;
         if (count <= 20 || count % 1000 == 0) {
-            unionFind->printUnions();
-            cout << "Estado número : " << count << endl;
+            //unionFind->printUnions();
+            //cout << "Estado número : " << count << endl;
         }
     }
     fclose(arq);
