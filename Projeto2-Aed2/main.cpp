@@ -7,8 +7,6 @@
 using namespace std;
 using std::string;
 
-bool print(int count);
-
 int main(int argc, char** argv) {
 
     if (argc == 0) {
@@ -26,18 +24,11 @@ int main(int argc, char** argv) {
         fscanf(arq, "%d", &b);
         unionFind->union_set_simples(a, b);
         count++;
-        if (print(count)) {
+        if (count <= 20 || count % 1000 == 0) {
             unionFind->printUnions(count);
         }
     }
     count = 0;
     fclose(arq);
     return 0;
-}
-
-bool print(int count) {
-    if (count <= 20 || count % 1000 == 0) {
-        return true;
-    }
-    return false;
 }
