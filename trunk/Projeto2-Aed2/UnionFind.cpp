@@ -51,7 +51,6 @@ void UnionFind::union_set_simples(int a, int b) {
             auxB = auxB->lesNext;
         }
     }
-    printUnions();
 }
 
 /*
@@ -135,7 +134,8 @@ void UnionFind::find_set(int no) {
  * @param
  * @return
  */
-void UnionFind::printUnions() {
+void UnionFind::printUnions(int count) {
+    cout << "Estado " << count << ": ";
     for (int i = 0; i < this->size; i++) {
         cout << this->les[i]->lesMain->valor << " ";
     }
