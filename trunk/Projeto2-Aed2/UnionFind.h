@@ -9,8 +9,8 @@ class UnionFind {
         virtual ~UnionFind();
         Les **les;
         int size;
-        Les *find_set_arvore(int no);
-        Les *find_set_arvore_ponderado(int no);
+        Les* find_set_arvore(int no);
+        Les* find_set_arvore_ponderado(int no);
         void union_set_simples(int a, int b);
         void union_set_ponderado(int a, int b);
         void union_set_floresta(int a, int b);
@@ -22,4 +22,3 @@ class UnionFind {
 };
 
 #endif	/* UNIONFIND_H */
-

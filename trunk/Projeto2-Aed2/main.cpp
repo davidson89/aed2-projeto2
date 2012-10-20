@@ -7,9 +7,6 @@
 using namespace std;
 using std::string;
 
-/*
- *
- */
 int main(int argc, char** argv) {
 
     if (argc == 0) {
@@ -18,9 +15,7 @@ int main(int argc, char** argv) {
 
     char* fileName = "uf1.txt";
     FILE *arq = fopen(fileName, "r");
-    int a;
-    int b;
-    int size;
+    int a, b, size;
     fscanf(arq, "%d", &size);
     cout << "** size: " << size << " **" << endl;
     UnionFind *unionFind = new UnionFind(size);
@@ -28,7 +23,8 @@ int main(int argc, char** argv) {
     while (!feof(arq)) {
         fscanf(arq, "%d", &a);
         fscanf(arq, "%d", &b);
-        unionFind->union_set_simples(a, b);
+        //unionFind->union_set_simples(a, b);
+        unionFind->union_set_ponderado(a, b);
         //unionFind->union_set_floresta_ponderada(a, b);
         count++;
         if (count <= 20 || count % 1000 == 0) {

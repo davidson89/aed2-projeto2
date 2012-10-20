@@ -6,6 +6,10 @@
 
 using namespace std;
 
+/*
+ * @param
+ * @return
+ */
 UnionFind::UnionFind(int size) {
     this->size = size;
     this->les = new Les *[size];
@@ -24,6 +28,10 @@ void UnionFind::make_set(int size) {
     }
 }
 
+/*
+ * @param
+ * @return
+ */
 void UnionFind::union_set_simples(int a, int b) {
     Les *auxA = this->les[a]->lesMain;
     Les *auxB = this->les[b]->lesMain;
@@ -32,28 +40,36 @@ void UnionFind::union_set_simples(int a, int b) {
     auxMainB->height = auxMainA->height + auxMainB->height;
     bool alterado = false;
 
-    while(auxA != NULL){
+    while (auxA != NULL) {
         auxA->lesMain = auxMainB;
         auxA = auxA->lesNext;
-        if(auxB->lesNext == NULL) {
+        if (auxB->lesNext == NULL) {
             auxB->lesNext = auxMainA;
             alterado = true;
         }
-        if(!alterado){
+        if (!alterado) {
             auxB = auxB->lesNext;
         }
     }
     printUnions();
 }
 
+/*
+ * @param
+ * @return
+ */
 void UnionFind::union_set_ponderado(int a, int b) {
-    if(this->les[a]->lesMain->height > this->les[b]->lesMain->height){
-        union_set_simples(b , a);
+    if (this->les[a]->lesMain->height > this->les[b]->lesMain->height) {
+        union_set_simples(b, a);
     } else {
-        union_set_simples(a , b);
+        union_set_simples(a, b);
     }
 }
 
+/*
+ * @param
+ * @return
+ */
 void UnionFind::union_set_floresta(int a, int b) {
     Les *x = find_set_arvore(a);
     Les *y = find_set_arvore(b);
@@ -64,6 +80,10 @@ void UnionFind::union_set_floresta(int a, int b) {
     y->height += x->height;
 }
 
+/*
+ * @param
+ * @return
+ */
 Les* UnionFind::find_set_arvore(int no) {
     Les *representante = this->les[no]->lesMain;
     while (representante != representante->lesMain) {
@@ -72,6 +92,10 @@ Les* UnionFind::find_set_arvore(int no) {
     return representante;
 };
 
+/*
+ * @param
+ * @return
+ */
 Les* UnionFind::find_set_arvore_ponderado(int no) {
     Les *representante = this->les[no]->lesMain;
     while (representante != representante->lesMain) {
@@ -81,6 +105,10 @@ Les* UnionFind::find_set_arvore_ponderado(int no) {
     return representante;
 };
 
+/*
+ * @param
+ * @return
+ */
 void UnionFind::union_set_floresta_ponderada(int a, int b) {
     Les *x = find_set_arvore_ponderado(a);
     Les *y = find_set_arvore_ponderado(b);
@@ -96,27 +124,42 @@ void UnionFind::union_set_floresta_ponderada(int a, int b) {
     return;
 }
 
+/*
+ * @param
+ * @return
+ */
 void UnionFind::find_set(int no) {
 }
 
+/*
+ * @param
+ * @return
+ */
 void UnionFind::printUnions() {
     for (int i = 0; i < this->size; i++) {
         cout << this->les[i]->lesMain->valor << " ";
     }
     cout << endl;
     /*
-        // acredito que o fin_set_arvore serve para os dois casos
-        // coloquei 10 so para teste , para conseguir ver o arquivo final
-        for (int i = 0; i < 10; i++) {
-            Les* representante = find_set_arvore(i);
-            cout << representante->valor << " ";
-        }
+    acredito que o fin_set_arvore serve para os dois casos
+    coloquei 10 so para teste , para conseguir ver o arquivo final
+    for (int i = 0; i < 10; i++) {
+        Les* representante = find_set_arvore(i);
+        cout << representante->valor << " ";
+    }
      */
 }
 
-UnionFind::UnionFind(const UnionFind& orig) {
+/*
+ * @param
+ * @return
+ */
+UnionFind::UnionFind(const UnionFind &orig) {
 }
 
+/*
+ * @param
+ * @return
+ */
 UnionFind::~UnionFind() {
 }
-

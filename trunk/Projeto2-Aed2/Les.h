@@ -5,16 +5,15 @@
 using namespace std;
 
 class Les {
-public:
-    Les(int valor);
-    Les(const Les& orig);
-    virtual ~Les();
-    int valor;
-    int height;
-    Les *lesMain;
-    Les *lesNext;
-private:
+    public:
+        Les(int valor);
+        Les(const Les &orig);
+        virtual ~Les();
+        int valor;
+        int height;
+        Les *lesMain;
+        Les *lesNext;
+    private:
 };
 
 #endif	/* LES_H */
-
