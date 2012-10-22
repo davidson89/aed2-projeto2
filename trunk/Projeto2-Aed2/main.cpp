@@ -8,11 +8,13 @@
 using namespace std;
 using std::string;
 
-void createFile(string inFile, string fileOut, char opt);
+void createFile(const char *fileIn, string fileOut, char opt);
 void printMenu();
 
 int main() {
     bool loop = 1;
+    const char *uf1 = "uf1.txt";
+    const char *uf2 = "uf2.txt";
     char opt;
     while (loop) {
         printMenu();
@@ -20,36 +22,34 @@ int main() {
         switch (opt) {
             case '0': loop = 0;
                 break;
-            case '1': createFile("uf1.txt", "uf1_union_find.txt", opt);
+            case '1': createFile(uf1, "uf1_union_find.txt", opt);
                 break;
-            case '2': createFile("uf1.txt", "uf1_union_find_ponderado.txt", opt);
+            case '2': createFile(uf1, "uf1_union_find_ponderado.txt", opt);
                 break;
-            case '3': createFile("uf1.txt", "uf1_union_find_floresta.txt", opt);
+            case '3': createFile(uf1, "uf1_union_find_floresta.txt", opt);
                 break;
-            case '4': createFile("uf1.txt", "uf1_union_find_floresta_ponderado.txt", opt);
+            case '4': createFile(uf1, "uf1_union_find_floresta_ponderado.txt", opt);
                 break;
-            case '5': createFile("uf2.txt", "uf2_union_find.txt", opt);
+            case '5': createFile(uf2, "uf2_union_find.txt", opt);
                 break;
-            case '6': createFile("uf2.txt", "uf2_union_find_ponderado.txt", opt);
+            case '6': createFile(uf2, "uf2_union_find_ponderado.txt", opt);
                 break;
-            case '7': createFile("uf2.txt", "uf2_union_find_floresta.txt", opt);
+            case '7': createFile(uf2, "uf2_union_find_floresta.txt", opt);
                 break;
-            case '8': createFile("uf2.txt", "uf2_union_find_floresta_ponderado.txt", opt);
+            case '8': createFile(uf2, "uf2_union_find_floresta_ponderado.txt", opt);
                 break;
         }
     }
     return 0;
 }
 
-void createFile(string fileIn, string fileOut, char opt) {
-    char* fileName = "uf1.txt";
-    string fileNameOut = fileOut;
-    FILE *arq = fopen(fileName, "r");
+void createFile(const char *fileIn, string fileOut, char opt) {
+    FILE *arq = fopen(fileIn, "r");
     int a, b, size, count = 0;
     string state;
     fscanf(arq, "%d", &size);
     UnionFind *unionFind = new UnionFind(size);
-    ofstream output(fileNameOut.data());
+    ofstream output(fileOut.data());
     if (!output.is_open()) {
         cout << "Nao foi possivel abrir o arquivo para gravacao dos dados" << endl;
         return;

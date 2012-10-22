@@ -155,13 +155,11 @@ void UnionFind::printUnions() {
  * @return
  */
 string UnionFind::getUnionsState() {
-    string state;
     stringstream ss;
     for (int i = 0; i < this->size; i++) {
         ss << this->les[i]->lesMain->valor << " ";
     }
-    state = ss.str();
-    return state;
+    return ss.str();
 }
 
 /*
