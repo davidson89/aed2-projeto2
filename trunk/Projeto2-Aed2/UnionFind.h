@@ -16,7 +16,8 @@ class UnionFind {
         void union_set_floresta(int a, int b);
         void union_set_floresta_ponderada(int a, int b);
         void find_set(int no);
-        void printUnions(int count);
+        void printUnions();
+        string getUnionsState();
     private:
         void make_set(int size);
 };

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <string>
+#include <sstream>
 #include "UnionFind.h"
 #include "Les.h"
 
@@ -134,12 +136,10 @@ void UnionFind::find_set(int no) {
  * @param
  * @return
  */
-void UnionFind::printUnions(int count) {
-    cout << "Estado " << count << ": ";
+void UnionFind::printUnions() {
     for (int i = 0; i < this->size; i++) {
         cout << this->les[i]->lesMain->valor << " ";
     }
-    cout << endl;
     /*
     acredito que o fin_set_arvore serve para os dois casos
     coloquei 10 so para teste , para conseguir ver o arquivo final
@@ -154,6 +154,20 @@ void UnionFind::printUnions(int count) {
  * @param
  * @return
  */
+string UnionFind::getUnionsState() {
+    string state;
+    stringstream ss;
+    for (int i = 0; i < this->size; i++) {
+        ss << this->les[i]->lesMain->valor << " ";
+    }
+    state = ss.str();
+    return state;
+}
+
+/*
+ * @param
+ * @return
+ */
 UnionFind::UnionFind(const UnionFind &orig) {
 }
 
@@ -162,4 +176,5 @@ UnionFind::UnionFind(const UnionFind &orig) {
  * @return
  */
 UnionFind::~UnionFind() {
+    delete les;
 }
