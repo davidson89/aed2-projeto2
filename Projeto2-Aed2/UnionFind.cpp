@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -9,8 +7,8 @@
 using namespace std;
 
 /*
- * @param
- * @return
+ * UnionFind - Constructor. Cria o vetor para objetos da classe les.
+ * @param size, o tamanho do vetor a ser criado.
  */
 UnionFind::UnionFind(int size) {
     this->size = size;
@@ -19,8 +17,8 @@ UnionFind::UnionFind(int size) {
 }
 
 /**
- * Inicializa todos os Les, fazendo com que cada um receba o seu valor e aponte para si mesmo como Head
- * @param size quantidade de Les que tem que ser inicializados
+ * ::make_set - Inicializa todos as instancias da classe Les, fazendo com que cada um receba o seu valor e aponte para si mesmo como Head.
+ * @param size, a quantidade de instancias da classe Les que serao criadas.
  */
 void UnionFind::make_set(int size) {
     for (int i = 0; i < size; i++) {
@@ -32,16 +30,15 @@ void UnionFind::make_set(int size) {
 
 /*
  * @param
- * @return
  */
 void UnionFind::union_set_simples(int a, int b) {
     Les *auxA = this->les[a]->lesMain;
     Les *auxB = this->les[b]->lesMain;
+    if (auxA == auxB) return;
     Les *auxMainA = this->les[a]->lesMain;
     Les *auxMainB = this->les[b]->lesMain;
     auxMainB->height = auxMainA->height + auxMainB->height;
     bool alterado = false;
-
     while (auxA != NULL) {
         auxA->lesMain = auxMainB;
         auxA = auxA->lesNext;
@@ -57,7 +54,6 @@ void UnionFind::union_set_simples(int a, int b) {
 
 /*
  * @param
- * @return
  */
 void UnionFind::union_set_ponderado(int a, int b) {
     if (this->les[a]->lesMain->height > this->les[b]->lesMain->height) {
@@ -69,14 +65,11 @@ void UnionFind::union_set_ponderado(int a, int b) {
 
 /*
  * @param
- * @return
  */
 void UnionFind::union_set_floresta(int a, int b) {
     Les *x = find_set_arvore(a);
     Les *y = find_set_arvore(b);
-
     if (x == y) return;
-
     x->lesMain = y;
     y->height += x->height;
 }
@@ -108,12 +101,10 @@ Les* UnionFind::find_set_arvore_ponderado(int no) {
 
 /*
  * @param
- * @return
  */
 void UnionFind::union_set_floresta_ponderada(int a, int b) {
     Les *x = find_set_arvore_ponderado(a);
     Les *y = find_set_arvore_ponderado(b);
-
     if (x == y) return;
     if (x->height > y->height) {
         y->lesMain = x;
@@ -127,51 +118,24 @@ void UnionFind::union_set_floresta_ponderada(int a, int b) {
 
 /*
  * @param
- * @return
  */
 void UnionFind::find_set(int no) {
 }
 
 /*
- * @param
- * @return
- */
-void UnionFind::printUnions() {
-    for (int i = 0; i < this->size; i++) {
-        cout << this->les[i]->lesMain->valor << " ";
-    }
-    /*
-    acredito que o fin_set_arvore serve para os dois casos
-    coloquei 10 so para teste , para conseguir ver o arquivo final
-    for (int i = 0; i < 10; i++) {
-        Les* representante = find_set_arvore(i);
-        cout << representante->valor << " ";
-    }
-     */
-}
-
-/*
- * @param
- * @return
+ * getUnionsState - Concatena numa string o valor do head de todos os elementos em um determinado estado.
+ * @return retorna a string.
  */
 string UnionFind::getUnionsState() {
     stringstream ss;
     for (int i = 0; i < this->size; i++) {
-        ss << this->les[i]->lesMain->valor << " ";
+        ss << this->les[i]->lesMain->value << " ";
     }
     return ss.str();
 }
 
 /*
- * @param
- * @return
- */
-UnionFind::UnionFind(const UnionFind &orig) {
-}
-
-/*
- * @param
- * @return
+ * ~UnionFind - Destructor. Desaloca o ponteiro para o vetor les criado no construtor.
  */
 UnionFind::~UnionFind() {
     delete les;
