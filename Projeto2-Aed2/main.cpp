@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void createFile(const char *fileIn, string fileOut, char opt,bool floresta);
+void createFile(const char *fileIn, string fileOut,string fileOutPonteiros, char opt,bool floresta);
 void printMenu();
 
 int main() {
@@ -19,21 +19,21 @@ int main() {
         switch (opt) {
             case '0': loop = 0;
                 break;
-			case '1': createFile(uf1, "uf1_union_find.txt", opt,false);
+	    case '1': createFile(uf1, "uf1_union_find.txt","uf1_union_find_Contagem.txt", opt,false);
                 break;
-            case '2': createFile(uf1, "uf1_union_find_ponderado.txt", opt,false);
+            case '2': createFile(uf1, "uf1_union_find_ponderado.txt", "uf1_union_find_ponderado_contagem.txt", opt,false);
                 break;
-            case '3': createFile(uf1, "uf1_union_find_floresta.txt", opt,true);
+            case '3': createFile(uf1, "uf1_union_find_floresta.txt","uf1_union_find_floresta_contagem.txt", opt,true);
                 break;
-            case '4': createFile(uf1, "uf1_union_find_floresta_ponderado.txt", opt,true);
+            case '4': createFile(uf1, "uf1_union_find_floresta_ponderado.txt","uf1_union_find_floresta_ponderado_contagem.txt", opt,true);
                 break;
-            case '5': createFile(uf2, "uf2_union_find.txt", opt,false);
+            case '5': createFile(uf2, "uf2_union_find.txt","uf2_union_find_contagem.txt", opt,false);
                 break;
-            case '6': createFile(uf2, "uf2_union_find_ponderado.txt", opt,false);
+            case '6': createFile(uf2, "uf2_union_find_ponderado.txt","uf2_union_find_ponderado_contagem.txt", opt,false);
                 break;
-            case '7': createFile(uf2, "uf2_union_find_floresta.txt", opt,true);
+            case '7': createFile(uf2, "uf2_union_find_floresta.txt", "uf2_union_find_floresta_contagem.txt", opt,true);
                 break;
-            case '8': createFile(uf2, "uf2_union_find_floresta_ponderado.txt", opt,true);
+            case '8': createFile(uf2, "uf2_union_find_floresta_ponderado.txt", "uf2_union_find_floresta_ponderado_contagem.txt", opt,true);
                 break;
             default: cout << "Digite uma opcao valida!" << endl;
         }
@@ -41,13 +41,15 @@ int main() {
     return 0;
 }
 
-void createFile(const char *fileIn, string fileOut, char opt ,bool floresta) {
+void createFile(const char *fileIn, string fileOut,string fileOutPonteiros, char opt ,bool floresta) {
     FILE *arq = fopen(fileIn, "r");
     int a, b, size, count = 0;
     string state;
     fscanf(arq, "%d", &size);
     UnionFind *unionFind = new UnionFind(size,floresta);
     ofstream output(fileOut.data());
+    
+    ofstream contagemPonteiros(fileOutPonteiros.data());
     if (!output.is_open()) {
         cout << "Nao foi possivel abrir o arquivo para gravacao dos dados." << endl;
         return;
@@ -70,7 +72,12 @@ void createFile(const char *fileIn, string fileOut, char opt ,bool floresta) {
 			}
 			output << state << endl;
         }
+        if ( count%1000==0 && count <= 50000)
+        {
+         contagemPonteiros << unionFind->OpereacoesPonteiro << endl; 
+        }
     }
+    contagemPonteiros.close();
     output.close();
     fclose(arq);
     cout << "Arquivo " << fileOut << " gerado com sucesso!!!\n" << endl;
