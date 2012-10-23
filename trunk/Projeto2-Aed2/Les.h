@@ -1,15 +1,14 @@
 #ifndef LES_H
 #define	LES_H
 #include <string>
-
+#include "Base.h"
 using namespace std;
 
-class Les {
+class Les: public Base {
     public:
         Les(int value);
-        int value;
-        int height;
-        Les *lesMain;
+       
+        Les *lesMain ;
         Les *lesNext;
     private:
 };
