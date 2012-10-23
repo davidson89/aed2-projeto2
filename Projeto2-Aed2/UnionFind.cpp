@@ -2,18 +2,36 @@
 #include <string>
 #include <sstream>
 #include "UnionFind.h"
+#include "Base.h"
 #include "Les.h"
-
+#include "Elemento_Floresta.h"
 using namespace std;
 
 /*
  * UnionFind - Constructor. Cria o vetor para objetos da classe les.
  * @param size, o tamanho do vetor a ser criado.
  */
-UnionFind::UnionFind(int size) {
+UnionFind::UnionFind(int size,bool floresta) {
     this->size = size;
-    this->les = new Les *[size];
-    make_set(size);
+	this->isfloresta = floresta;
+	if(floresta)
+	{
+		this->Floresta = new Elemento_Floresta *[size];
+	     make_setFloresta(size);
+	}
+	else{
+		this->les = new Les *[size];
+		make_set(size);
+	}
+    
+	
+}
+void UnionFind::make_setFloresta(int size) {
+    for (int i = 0; i < size; i++) {
+		this->Floresta[i] = new Elemento_Floresta(i);
+        this->Floresta[i]->pai = this->Floresta[i];
+     
+    }
 }
 
 /**
@@ -67,10 +85,10 @@ void UnionFind::union_set_ponderado(int a, int b) {
  * @param
  */
 void UnionFind::union_set_floresta(int a, int b) {
-    Les *x = find_set_arvore(a);
-    Les *y = find_set_arvore(b);
+    Elemento_Floresta *x = find_set_arvore(a);
+    Elemento_Floresta *y = find_set_arvore(b);
     if (x == y) return;
-    x->lesMain = y;
+	x->pai = y;
     y->height += x->height;
 }
 
@@ -78,10 +96,10 @@ void UnionFind::union_set_floresta(int a, int b) {
  * @param
  * @return
  */
-Les* UnionFind::find_set_arvore(int no) {
-    Les *representante = this->les[no]->lesMain;
-    while (representante != representante->lesMain) {
-        representante = representante->lesMain;
+Elemento_Floresta* UnionFind::find_set_arvore(int no) {
+	Elemento_Floresta *representante = this->Floresta[no]->pai;
+    while (representante != representante->pai) {
+        representante = representante->pai;
     }
     return representante;
 };
@@ -90,12 +108,12 @@ Les* UnionFind::find_set_arvore(int no) {
  * @param
  * @return
  */
-Les* UnionFind::find_set_arvore_ponderado(int no) {
-    Les *representante = this->les[no]->lesMain;
-    while (representante != representante->lesMain) {
-        representante = representante->lesMain;
+Elemento_Floresta* UnionFind::find_set_arvore_ponderado(int no) {
+	Elemento_Floresta *representante = this->Floresta[no]->pai;
+    while (representante != representante->pai) {
+        representante = representante->pai;
     }
-    this->les[no]->lesMain = representante;
+    this->Floresta[no]->pai = representante;
     return representante;
 };
 
@@ -103,14 +121,14 @@ Les* UnionFind::find_set_arvore_ponderado(int no) {
  * @param
  */
 void UnionFind::union_set_floresta_ponderada(int a, int b) {
-    Les *x = find_set_arvore_ponderado(a);
-    Les *y = find_set_arvore_ponderado(b);
+    Elemento_Floresta *x = find_set_arvore_ponderado(a);
+    Elemento_Floresta *y = find_set_arvore_ponderado(b);
     if (x == y) return;
     if (x->height > y->height) {
-        y->lesMain = x;
+        y->pai = x;
         x->height += y->height;
     } else {
-        x->lesMain = y;
+        x->pai = y;
         y->height += x->height;
     }
     return;
@@ -121,6 +139,15 @@ void UnionFind::union_set_floresta_ponderada(int a, int b) {
  */
 void UnionFind::find_set(int no) {
 }
+string UnionFind::getUnionsState_Floresta()
+{
+	stringstream ss;
+    for (int i = 0; i < this->size; i++) {
+        ss << this->Floresta[i]->pai->value << " ";
+    }
+    return ss.str();
+}
+
 
 /*
  * getUnionsState - Concatena numa string o valor do head de todos os elementos em um determinado estado.
@@ -138,5 +165,12 @@ string UnionFind::getUnionsState() {
  * ~UnionFind - Destructor. Desaloca o ponteiro para o vetor les criado no construtor.
  */
 UnionFind::~UnionFind() {
-    delete les;
-}
+    ;
+	if(isfloresta)
+		{
+			delete[] Floresta;
+	} else 
+	{
+	 delete les;
+	}
+	}
