@@ -6,10 +6,8 @@ using namespace std;
 
 class Les {
     public:
-        Les(int valor);
-        Les(const Les &orig);
-        virtual ~Les();
-        int valor;
+        Les(int value);
+        int value;
         int height;
         Les *lesMain;
         Les *lesNext;

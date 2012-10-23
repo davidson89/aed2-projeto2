@@ -1,12 +1,9 @@
-#include <cstdlib>
 #include <iostream>
 #include <fstream>
-#include <stdio.h>
 #include <string>
 #include "UnionFind.h"
 
 using namespace std;
-using std::string;
 
 void createFile(const char *fileIn, string fileOut, char opt);
 void printMenu();
@@ -38,6 +35,7 @@ int main() {
                 break;
             case '8': createFile(uf2, "uf2_union_find_floresta_ponderado.txt", opt);
                 break;
+            default: cout << "Digite uma opcao valida!" << endl;
         }
     }
     return 0;
@@ -51,7 +49,7 @@ void createFile(const char *fileIn, string fileOut, char opt) {
     UnionFind *unionFind = new UnionFind(size);
     ofstream output(fileOut.data());
     if (!output.is_open()) {
-        cout << "Nao foi possivel abrir o arquivo para gravacao dos dados" << endl;
+        cout << "Nao foi possivel abrir o arquivo para gravacao dos dados." << endl;
         return;
     }
     cout << "Aguarde: Gerando arquivo de saida..." << endl;
