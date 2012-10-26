@@ -11,27 +11,26 @@ using namespace std;
  * UnionFind - Constructor. Cria o vetor para objetos da classe les.
  * @param size, o tamanho do vetor a ser criado.
  */
-UnionFind::UnionFind(int size,bool floresta) {
+UnionFind::UnionFind(int size, bool floresta) {
     this->size = size;
-    this->OpereacoesPonteiro=0;
-	this->isfloresta = floresta;
-	if(floresta)
-	{
-		this->Floresta = new Elemento_Floresta *[size];
-	     make_setFloresta(size);
-	}
-	else{
-		this->les = new Les *[size];
-		make_set(size);
-	}
-    
-	
+    this->OpereacoesPonteiro = 0;
+    this->isfloresta = floresta;
+    if (floresta) {
+        this->Floresta = new Elemento_Floresta *[size];
+        make_setFloresta(size);
+    } else {
+        this->les = new Les *[size];
+        make_set(size);
+    }
+
+
 }
+
 void UnionFind::make_setFloresta(int size) {
     for (int i = 0; i < size; i++) {
-		this->Floresta[i] = new Elemento_Floresta(i);
+        this->Floresta[i] = new Elemento_Floresta(i);
         this->Floresta[i]->pai = this->Floresta[i];
-     
+
     }
 }
 
@@ -47,15 +46,12 @@ void UnionFind::make_set(int size) {
     }
 }
 
-/*
- * @param
- */
 void UnionFind::union_set_simples(int a, int b) {
     Les *auxA = this->les[a]->lesMain;
     Les *auxB = this->les[b]->lesMain;
     if (auxA == auxB) return;
-    Les *auxMainA = this->les[a]->lesMain;
-    Les *auxMainB = this->les[b]->lesMain;
+    Les *auxMainA = auxA;
+    Les *auxMainB = auxB;
     auxMainB->height = auxMainA->height + auxMainB->height;
     bool alterado = false;
     while (auxA != NULL) {
@@ -64,19 +60,14 @@ void UnionFind::union_set_simples(int a, int b) {
         //
         auxA->lesMain = auxMainB;
         auxA = auxA->lesNext;
-        if (auxB->lesNext == NULL) {
-            auxB->lesNext = auxMainA;
-            alterado = true;
-            
-              // operacao de ponteiro
-        this->OpereacoesPonteiro++;
-        //
-        }
-        if (!alterado) {
+        while (!alterado) {
+            if (auxB->lesNext == NULL) {
+                auxB->lesNext = auxMainA;
+                alterado = true;
+                // operacao de ponteiro
+                this->OpereacoesPonteiro++;
+            }
             auxB = auxB->lesNext;
-              // operacao de ponteiro
-        this->OpereacoesPonteiro++;
-        //
         }
     }
 }
@@ -99,10 +90,10 @@ void UnionFind::union_set_floresta(int a, int b) {
     Elemento_Floresta *x = find_set_arvore(a);
     Elemento_Floresta *y = find_set_arvore(b);
     if (x == y) return;
-	x->pai = y;
-          // operacao de ponteiro
-        this->OpereacoesPonteiro++;
-        //
+    x->pai = y;
+    // operacao de ponteiro
+    this->OpereacoesPonteiro++;
+    //
     y->height += x->height;
 }
 
@@ -111,13 +102,13 @@ void UnionFind::union_set_floresta(int a, int b) {
  * @return
  */
 Elemento_Floresta* UnionFind::find_set_arvore(int no) {
-	Elemento_Floresta *representante = this->Floresta[no]->pai;
-          // operacao de ponteiro
-        this->OpereacoesPonteiro++;
-        //
+    Elemento_Floresta *representante = this->Floresta[no]->pai;
+    // operacao de ponteiro
+    this->OpereacoesPonteiro++;
+    //
     while (representante != representante->pai) {
         representante = representante->pai;
-          // operacao de ponteiro
+        // operacao de ponteiro
         this->OpereacoesPonteiro++;
         //
     }
@@ -129,17 +120,17 @@ Elemento_Floresta* UnionFind::find_set_arvore(int no) {
  * @return
  */
 Elemento_Floresta* UnionFind::find_set_arvore_ponderado(int no) {
-	Elemento_Floresta *representante = this->Floresta[no]->pai;
+    Elemento_Floresta *representante = this->Floresta[no]->pai;
     while (representante != representante->pai) {
         representante = representante->pai;
-          // operacao de ponteiro
+        // operacao de ponteiro
         this->OpereacoesPonteiro++;
         //
     }
     this->Floresta[no]->pai = representante;
-      // operacao de ponteiro
-        this->OpereacoesPonteiro++;
-        //
+    // operacao de ponteiro
+    this->OpereacoesPonteiro++;
+    //
     return representante;
 };
 
@@ -152,14 +143,14 @@ void UnionFind::union_set_floresta_ponderada(int a, int b) {
     if (x == y) return;
     if (x->height > y->height) {
         y->pai = x;
-          // operacao de ponteiro
+        // operacao de ponteiro
         this->OpereacoesPonteiro++;
         //
         x->height += y->height;
     } else {
         x->pai = y;
         y->height += x->height;
-          // operacao de ponteiro
+        // operacao de ponteiro
         this->OpereacoesPonteiro++;
         //
     }
@@ -169,26 +160,23 @@ void UnionFind::union_set_floresta_ponderada(int a, int b) {
 /*
  * @param
  */
-int UnionFind:: find_set_ArvoreImprecao(int no)
-{
+int UnionFind::find_set_ArvoreImprecao(int no) {
     Elemento_Floresta *representante = this->Floresta[no]->pai;
-    if (representante == this->Floresta[no] ) return representante->value;
-    
+    if (representante == this->Floresta[no]) return representante->value;
+
     while (representante != representante->pai) {
-        representante = representante->pai;  
+        representante = representante->pai;
     }
     representante->value;
 }
 
-string UnionFind::getUnionsState_Floresta()
-{
-	stringstream ss;
+string UnionFind::getUnionsState_Floresta() {
+    stringstream ss;
     for (int i = 0; i < this->size; i++) {
         ss << this->find_set_ArvoreImprecao(i) << " ";
     }
     return ss.str();
 }
-
 
 /*
  * getUnionsState - Concatena numa string o valor do head de todos os elementos em um determinado estado.
@@ -207,11 +195,9 @@ string UnionFind::getUnionsState() {
  */
 UnionFind::~UnionFind() {
     ;
-	if(isfloresta)
-		{
-			delete[] Floresta;
-	} else 
-	{
-	 delete les;
-	}
-	}
+    if (isfloresta) {
+        delete[] Floresta;
+    } else {
+        delete les;
+    }
+}
