@@ -61,25 +61,25 @@ Les* UnionFind::find_set(int no) {
  * @param b, elemento do conjunto a ser unido.
  */
 void UnionFind::union_set_simples(int a, int b) {
-    Les *auxA = this->les[a]->lesMain;
-    Les *auxB = this->les[b]->lesMain;
+    Les *auxA = find_set(a);
+    Les *auxB = find_set(b);
     if (auxA == auxB) return;
     Les *auxMainA = auxA;
     Les *auxMainB = auxB;
-    auxMainB->height = auxMainA->height + auxMainB->height;
+    auxMainB->height += auxMainA->height;
     bool alterado = false;
     while (auxA != NULL) {
-        this->operPointer++;
         auxA->lesMain = auxMainB;
         auxA = auxA->lesNext;
-        while (!alterado) {
-            if (auxB->lesNext == NULL) {
-                auxB->lesNext = auxMainA;
-                alterado = true;
-                this->operPointer++;
-            }
-            auxB = auxB->lesNext;
+        this->operPointer++;
+    }
+    while (!alterado) {
+        if (auxB->lesNext == NULL) {
+            auxB->lesNext = auxMainA;
+            this->operPointer++;
+            alterado = true;
         }
+        auxB = auxB->lesNext;
     }
 }
 
