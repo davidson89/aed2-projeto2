@@ -18,7 +18,6 @@
         <itemPath>../../../../../Área de Trabalho/uf1.txt</itemPath>
         <itemPath>../../../../../Área de Trabalho/uf2.txt</itemPath>
       </logicalFolder>
-      <itemPath>Base.cpp</itemPath>
       <itemPath>Elemento_Floresta.cpp</itemPath>
       <itemPath>Les.cpp</itemPath>
       <itemPath>Les.h</itemPath>
@@ -45,6 +44,7 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
       </compileType>

@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Base.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/UnionFind.o \
 	${OBJECTDIR}/Les.o \
@@ -66,27 +65,22 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto2-aed2: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto2-aed2 ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Base.o: Base.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Base.o Base.cpp
-
-${OBJECTDIR}/main.o: main.cpp 
+${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
-${OBJECTDIR}/UnionFind.o: UnionFind.cpp 
+${OBJECTDIR}/UnionFind.o: nbproject/Makefile-${CND_CONF}.mk UnionFind.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/UnionFind.o UnionFind.cpp
 
-${OBJECTDIR}/Les.o: Les.cpp 
+${OBJECTDIR}/Les.o: nbproject/Makefile-${CND_CONF}.mk Les.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Les.o Les.cpp
 
-${OBJECTDIR}/Elemento_Floresta.o: Elemento_Floresta.cpp 
+${OBJECTDIR}/Elemento_Floresta.o: nbproject/Makefile-${CND_CONF}.mk Elemento_Floresta.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Elemento_Floresta.o Elemento_Floresta.cpp
