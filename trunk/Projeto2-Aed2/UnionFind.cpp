@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+ #include <fstream>
 #include <sstream>
 #include "UnionFind.h"
 #include "Base.h"
@@ -34,7 +35,10 @@ void UnionFind::make_set_floresta(int size) {
     for (int i = 0; i < size; i++) {
         this->floresta[i] = new Elemento_Floresta(i);
         this->floresta[i]->pai = this->floresta[i];
+       
     }
+    
+
 }
 
 /**
@@ -102,6 +106,8 @@ void UnionFind::union_set_floresta(int a, int b) {
     x->pai = y;
     this->operPointer++;
     y->height += x->height;
+    
+   
 }
 
 /*
@@ -110,7 +116,7 @@ void UnionFind::union_set_floresta(int a, int b) {
  */
 Elemento_Floresta* UnionFind::find_set_arvore(int no) {
     Elemento_Floresta *representante = this->floresta[no]->pai;
-    this->operPointer++;
+   
     while (representante != representante->pai) {
         representante = representante->pai;
         this->operPointer++;
@@ -156,12 +162,14 @@ void UnionFind::union_set_floresta_ponderada(int a, int b) {
  * @param
  */
 int UnionFind::find_set_arvore_imprecao(int no) {
-    Elemento_Floresta *representante = this->floresta[no]->pai;
-    if (representante == this->floresta[no]) return representante->value;
+    Elemento_Floresta *representante = this->floresta[no];
+
     while (representante != representante->pai) {
         representante = representante->pai;
     }
-    representante->value;
+    int i = representante->value;
+    int j;
+   return representante->value;
 }
 
 /*

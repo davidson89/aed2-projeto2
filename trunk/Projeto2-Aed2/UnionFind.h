@@ -15,6 +15,7 @@ class UnionFind {
         void union_set_floresta_ponderada(int a, int b);
         string get_unions_state();
         string get_unions_state_floresta();
+       
     private:
         Les **les;
         Elemento_Floresta **floresta;
