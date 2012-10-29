@@ -120,7 +120,7 @@ Elemento_Floresta* UnionFind::find_set_arvore(int no) {
         this->operPointer++;
     }
     return representante;
-};
+}
 
 /**
  * find_set_arvore_ponderado - 
@@ -136,7 +136,7 @@ Elemento_Floresta* UnionFind::find_set_arvore_ponderado(int no) {
     this->floresta[no]->pai = representante;
     this->operPointer++;
     return representante;
-};
+}
 
 /**
  * union_set_floresta_ponderada - 
@@ -196,7 +196,7 @@ string UnionFind::get_unions_state() {
 }
 
 /**
- * ~UnionFind - Destructor. Desaloca o ponteiro para o vetor les ou floresta criado no construtor.
+ * ~UnionFind - Destructor. Desaloca o ponteiro para o vetor les ou floresta criado no construtor e todos os ponteiros contidos nestes vetores.
  **/
 UnionFind::~UnionFind() {
     if (isFloresta) {
