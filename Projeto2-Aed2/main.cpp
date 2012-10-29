@@ -51,14 +51,12 @@ void createFile(const char *fileIn, string fileOut, string fileOutPonteiros, cha
     string state;
     fscanf(arq, "%d", &size);
     UnionFind *unionFind = new UnionFind(size, floresta);
-
     ofstream output(fileOut.data());
     ofstream contagemPonteiros(fileOutPonteiros.data());
     if (!output.is_open() || !contagemPonteiros.is_open()) {
         cout << "Nao foi possivel abrir o arquivo para gravacao dos dados." << endl;
         return;
     }
-    
     cout << "Aguarde: Gerando arquivos de saida..." << endl;
     while (!feof(arq)) {
         fscanf(arq, "%d", &a);
@@ -74,12 +72,10 @@ void createFile(const char *fileIn, string fileOut, string fileOutPonteiros, cha
             output << state << endl;
             if (count > 20) contagemPonteiros << unionFind->operPointer << endl;        
         }
-  
     }
     contagemPonteiros.close();
     output.close();
-    fclose(arq);
-    
+    fclose(arq);   
     cout << "Arquivos " << fileOut << " e " << fileOutPonteiros << " gerados com sucesso!!!\n"
             "O arquivo " << fileOut << " contem os estados dos representantes\n"
             "O arquivo " << fileOutPonteiros << " contem a quantidade de operacoes de ponteiros\n" << endl;
