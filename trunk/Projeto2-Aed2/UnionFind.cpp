@@ -200,6 +200,6 @@ string UnionFind::get_unions_state() {
  * ~UnionFind - Destructor. Desaloca o ponteiro para o vetor les ou floresta criado no construtor.
  */
 UnionFind::~UnionFind() {
-    if (isFloresta) delete floresta;
-    else delete les;
+    if (isFloresta) delete[] floresta;
+    else delete[] les;
 }
