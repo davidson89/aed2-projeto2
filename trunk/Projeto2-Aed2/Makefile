@@ -14,6 +14,6 @@ clean:
 	rm -f *.o lab2
 
 lab2d:
-	g++ ${FLAGS} -o lab2d: ${CLASSES}
+	g++ ${FLAGS} -o lab2d ${CLASSES}
 	doxygen -g
 	doxygen
